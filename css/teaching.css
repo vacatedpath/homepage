@@ -1,0 +1,43 @@
+.teaching-block {
+  background: white;
+  padding: 24px 26px;
+  margin-bottom: 24px;
+  border-radius: 16px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.teaching-block:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+}
+
+.teaching-block h2 {
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-size: 24px;
+  color: #222;
+}
+
+.teaching-block p {
+  margin: 0;
+  line-height: 1.9;
+  font-size: 16px;
+  color: #444;
+}
+
+.course-list {
+  margin: 0;
+  padding-left: 24px;
+}
+
+.course-list li {
+  margin-bottom: 14px;
+  line-height: 1.9;
+  font-size: 16px;
+  color: #444;
+}
+
+.course-list li:last-child {
+  margin-bottom: 0;
+}
