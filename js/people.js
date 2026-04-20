@@ -10,6 +10,7 @@ const modalPapers = document.getElementById("modalPapers");
 const modalProjects = document.getElementById("modalProjects");
 const modalService = document.getElementById("modalService");
 const modalEmail = document.getElementById("modalEmail");
+const modalBlockTitles = document.querySelectorAll(".modal-block h3");
 
 const advisorPaperLinks = [
   "https://webvpn.ccnu.edu.cn/https/77726476706e69737468656265737421e7e056d234336155700b8ca891472636a6d29e640e/science/article/pii/S0306457325002523",
@@ -71,7 +72,53 @@ function formatPapers(text, email) {
   }).join("<br><br>");
 }
 
-/* 弹窗逻辑 */
+function isStudentCard(card) {
+  const section = card.closest(".member-section");
+  return section && section.id !== "advisor";
+}
+
+function buildStudentPreview(card) {
+  const info = card.querySelector(".member-info");
+  if (!info) {
+    return;
+  }
+
+  const title = info.querySelector("h3");
+  const role = info.querySelector(".member-role");
+  const major = card.getAttribute("data-summary") || "待补充";
+  const grade = card.getAttribute("data-papers") || "待补充";
+  const direction = card.getAttribute("data-projects") || "";
+  const achievement = card.getAttribute("data-service") || "待补充";
+  const email = card.getAttribute("data-email") || "待补充";
+
+  const lines = [
+    `<p>专业：${escapeHtml(major)}</p>`,
+    `<p>年级：${escapeHtml(grade)}</p>`,
+  ];
+
+  if (direction.trim()) {
+    lines.push(`<p>研究方向：${escapeHtml(direction)}</p>`);
+  }
+
+  lines.push(`<p>学习成果：${escapeHtml(achievement)}</p>`);
+  lines.push(`<p>联系邮箱：${escapeHtml(email)}</p>`);
+
+  info.innerHTML = "";
+  if (title) {
+    info.appendChild(title);
+  }
+  if (role) {
+    info.appendChild(role);
+  }
+  info.insertAdjacentHTML("beforeend", lines.join(""));
+}
+
+memberCards.forEach(card => {
+  if (isStudentCard(card)) {
+    buildStudentPreview(card);
+  }
+});
+
 memberCards.forEach(card => {
   card.addEventListener("click", () => {
     const name = card.getAttribute("data-name");
@@ -82,14 +129,32 @@ memberCards.forEach(card => {
     const projects = card.getAttribute("data-projects");
     const service = card.getAttribute("data-service");
     const email = card.getAttribute("data-email");
+    const studentCard = isStudentCard(card);
 
     modalName.textContent = name;
     modalRole.textContent = role;
     modalPhoto.textContent = photo;
+
+    if (modalBlockTitles.length >= 5) {
+      if (studentCard) {
+        modalBlockTitles[0].textContent = "专业";
+        modalBlockTitles[1].textContent = "年级";
+        modalBlockTitles[2].textContent = "研究方向";
+        modalBlockTitles[3].textContent = "学习成果";
+        modalBlockTitles[4].textContent = "联系邮箱";
+      } else {
+        modalBlockTitles[0].textContent = "简介";
+        modalBlockTitles[1].textContent = "论文成果";
+        modalBlockTitles[2].textContent = "科研项目";
+        modalBlockTitles[3].textContent = "学术兼职";
+        modalBlockTitles[4].textContent = "联系邮箱";
+      }
+    }
+
     modalSummary.innerHTML = formatText(summary);
-    modalPapers.innerHTML = formatPapers(papers, email);
+    modalPapers.innerHTML = studentCard ? formatText(papers) : formatPapers(papers, email);
     modalProjects.innerHTML = formatText(projects);
-    modalService.innerHTML = formatText(service);
+    modalService.innerHTML = formatText(service || "待补充");
     modalEmail.textContent = email;
 
     modal.classList.add("show");
@@ -106,7 +171,6 @@ modal.addEventListener("click", (e) => {
   }
 });
 
-/* 左侧导航高亮 */
 const sections = document.querySelectorAll(".member-section");
 const navLinks = document.querySelectorAll(".side-nav a");
 
@@ -129,7 +193,6 @@ function setActiveLink() {
   });
 }
 
-/* 点击时立即高亮 */
 navLinks.forEach(link => {
   link.addEventListener("click", () => {
     navLinks.forEach(item => item.classList.remove("active"));
