@@ -140,6 +140,10 @@
   line-height: 1.75;
 }
 
+.member-info p:last-child {
+  margin-bottom: 0;
+}
+
 /* 弹窗 */
 .modal-overlay {
   position: fixed;
