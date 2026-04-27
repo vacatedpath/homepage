@@ -1,0 +1,325 @@
+.container.people-page {
+  width: min(1320px, 95%);
+}
+
+.people-page {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+}
+
+/* 左侧导航 */
+.side-nav {
+  width: 156px;
+  position: sticky;
+  top: 18px;
+  background: white;
+  border-radius: 16px;
+  padding: 18px 14px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+}
+
+.side-nav h3 {
+  margin-top: 0;
+  margin-bottom: 14px;
+  font-size: 18px;
+  color: #222;
+}
+
+.side-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.side-nav li {
+  margin-bottom: 10px;
+}
+
+.side-nav li:last-child {
+  margin-bottom: 0;
+}
+
+.side-nav a {
+  display: block;
+  text-decoration: none;
+  color: #334155;
+  font-size: 14px;
+  padding: 10px 10px;
+  border-radius: 14px;
+  transition: transform 0.2s ease, background 0.24s ease, color 0.24s ease, box-shadow 0.24s ease;
+}
+
+.side-nav a:hover {
+  background: linear-gradient(135deg, #dff1ff 0%, #c7e6ff 100%);
+  color: #2d87df;
+  box-shadow: 0 8px 18px rgba(45, 135, 223, 0.2);
+  transform: translateY(-1px);
+}
+
+.side-nav a.active {
+  background: linear-gradient(135deg, #4fa7f2 0%, #368fe8 100%);
+  color: white;
+  box-shadow: 0 10px 22px rgba(54, 143, 232, 0.3);
+}
+
+/* 右侧主体 */
+.people-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.member-section {
+  margin-bottom: 42px;
+  scroll-margin-top: 20px;
+}
+
+.member-section h2 {
+  margin-bottom: 20px;
+  font-size: 28px;
+  color: #222;
+}
+
+.member-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px;
+}
+
+.advisor-grid {
+  grid-template-columns: 1fr;
+}
+
+/* 成员卡片 */
+.member-card {
+  background: white;
+  border-radius: 18px;
+  display: flex;
+  align-items: flex-start;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  min-height: 0;
+}
+
+.member-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+}
+
+.member-photo-square {
+  width: 220px;
+  height: 220px;
+  flex-shrink: 0;
+  background: #e9edf3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.member-info {
+  flex: 1;
+  height: 220px;
+  padding: 20px 20px 18px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+.member-info::-webkit-scrollbar {
+  width: 5px;
+}
+
+.member-info::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.member-info::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 999px;
+}
+
+.member-card:hover .member-info,
+.member-info:hover {
+  scrollbar-color: rgba(148, 163, 184, 0.45) transparent;
+}
+
+.member-card:hover .member-info::-webkit-scrollbar-thumb,
+.member-info:hover::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.4);
+}
+
+.member-info h3 {
+  margin: 0 0 8px;
+  font-size: 22px;
+  color: #222;
+}
+
+.member-role {
+  margin: 0 0 12px;
+  color: #2f5e9e;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.member-info p {
+  margin: 7px 0;
+  color: #555;
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+.member-info p:last-child {
+  margin-bottom: 0;
+}
+
+/* 弹窗 */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-overlay.show {
+  display: flex;
+}
+
+.modal-box {
+  width: 92%;
+  max-width: 760px;
+  max-height: 88vh;
+  overflow-y: auto;
+  background: white;
+  border-radius: 20px;
+  padding: 34px 30px 28px;
+  position: relative;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.16);
+}
+
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  border: none;
+  background: none;
+  font-size: 30px;
+  color: #666;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  color: #111;
+}
+
+.modal-photo {
+  width: 160px;
+  height: 160px;
+  margin: 0 auto 18px;
+  border-radius: 16px;
+  background: #e9edf3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.modal-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+.modal-box h2 {
+  margin: 0 0 8px;
+  font-size: 30px;
+  color: #222;
+  text-align: center;
+}
+
+#modalRole {
+  margin: 0 0 20px;
+  font-size: 17px;
+  color: #666;
+  text-align: center;
+}
+
+.modal-content {
+  margin-top: 12px;
+}
+
+.modal-block {
+  background: #f8fafc;
+  border-radius: 14px;
+  padding: 18px 18px;
+  margin-bottom: 16px;
+}
+
+.modal-block h3 {
+  margin: 0 0 10px;
+  font-size: 20px;
+  color: #222;
+}
+
+.modal-block p {
+  margin: 0;
+  line-height: 1.9;
+  color: #444;
+  font-size: 15px;
+}
+
+@media (max-width: 1100px) {
+  .member-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .people-page {
+    flex-direction: column;
+  }
+
+  .side-nav {
+    width: 100%;
+    position: static;
+  }
+}
+
+@media (max-width: 700px) {
+  .member-card {
+    flex-direction: column;
+    min-height: auto;
+  }
+
+  .member-photo-square {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+  }
+
+  .member-info {
+    height: auto;
+    overflow-y: visible;
+  }
+}
+
+.member-photo-square img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.modal-block.is-hidden {
+  display: none;
+}
+
